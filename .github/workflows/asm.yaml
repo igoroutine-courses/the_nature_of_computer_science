@@ -1,9 +1,7 @@
-name: Test CI for Go optimizations course
+name: Asm
 
-on: [ push ]
-
-
-# TDOO: classroom
+on:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -11,14 +9,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ macos-latest ]
+        os: [ macos-latest, ubuntu-latest ]
 
     steps:
       - uses: actions/checkout@v4
       - name: setup go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22.2'
+          go-version: stable
           cache-dependency-path: open_lessons/asm/go.sum
       - name: dependencies
         working-directory: ./open_lessons/asm
