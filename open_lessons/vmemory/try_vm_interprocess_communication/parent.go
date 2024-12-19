@@ -36,7 +36,7 @@ func runChild(
 	cmd.Stderr = os.Stderr
 	cmd.Env = os.Environ()
 
-	// ok for demo
+	// ok for demo, not valid
 	cmd.Args = append(cmd.Args, fmt.Sprint(uintptr(unsafe.Pointer(address))))
 
 	err = cmd.Start()
