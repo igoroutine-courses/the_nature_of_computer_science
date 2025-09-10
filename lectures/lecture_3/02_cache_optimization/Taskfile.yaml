@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  run:
+    cmds:
+      - go test -gcflags='-N' -bench=.
+    desc: "Run tests"

@@ -1,18 +1,21 @@
-package cache_contention
+package main
 
 import (
-	"golang.org/x/sys/cpu"
 	"math/rand/v2"
 	"runtime"
 	"sync"
 	"sync/atomic"
 	"testing"
 	"unsafe"
+
+	"golang.org/x/sys/cpu"
 )
 
 const cacheLineSize = unsafe.Sizeof(cpu.CacheLinePad{})
 
-func BenchmarkCacheContentionWithoutPadding(b *testing.B) {
+func BenchmarkCacheContentionWithPadding(b *testing.B) {
+	b.ReportAllocs()
+
 	type WorkerStatistics struct {
 		Value atomic.Int64
 		_     [cacheLineSize - 8]byte
@@ -37,7 +40,9 @@ func BenchmarkCacheContentionWithoutPadding(b *testing.B) {
 	wg.Wait()
 }
 
-func BenchmarkCacheContentionWithPadding(b *testing.B) {
+func BenchmarkCacheContentionWithoutPadding(b *testing.B) {
+	b.ReportAllocs()
+
 	type WorkerStatistics struct {
 		Value atomic.Int64
 	}
