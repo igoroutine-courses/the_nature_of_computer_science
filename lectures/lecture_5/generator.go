@@ -16,7 +16,7 @@ func main() {
 		panic(err)
 	}
 
-	f, err := os.Create(filepath.Join(wd, "/lections/lection_3/data.txt"))
+	f, err := os.Create(filepath.Join(wd, "/lectures/lecture_4/data.txt"))
 
 	if err != nil {
 		panic(err)
