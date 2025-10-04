@@ -1,0 +1,32 @@
+version: '3'
+
+tasks:
+  generate:
+    desc: Pull main, update all branches, and rebase on main
+    cmds:
+      - |
+        go run generator.go
+        cat ammo_template.txt | python3 ./script.py > ammo.txt
+        
+        echo 'Successfully generated'
+
+  traceprof:
+    desc: Trace profiling
+    cmds:
+      - |
+        curl http://localhost:8080/debug/pprof/trace\?seconds\=20 -o trace.out
+        go tool trace -http ":8082" trace.out
+
+        echo 'Successfully generated'
+
+  cpuprof:
+    desc: CPU profiling
+    cmds:
+      - |
+        go tool pprof -http :8082 -seconds 20 http://127.0.0.1:8080/debug/pprof/profile)
+
+  genload:
+    desc: Pandora generator load
+    cmds:
+      - |
+        (cd ./tank && pandora pandora.yml)

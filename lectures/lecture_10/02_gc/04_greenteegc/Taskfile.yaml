@@ -1,0 +1,32 @@
+version: '3'
+
+tasks:
+  small:
+    desc: Benchmark with small objects
+    cmds:
+      - |
+        cd ./01_small_objects
+        echo "OLD GC: "
+        go test -bench=.
+        
+        echo -e "\n"
+        
+        echo "NEW GC: "
+        (GOEXPERIMENT=greenteagc go test -bench=.)
+        
+        echo -e "\n"
+
+
+  large:
+    desc: Benchmark with big objects
+    cmds:
+      - |
+        cd ./02_large_objects
+        echo "OLD GC: "
+        go test -bench=.
+        
+        echo -e "\n"
+        
+        echo "NEW GC: "
+        (GOEXPERIMENT=greenteagc go test -bench=.)
+        echo -e "\n"

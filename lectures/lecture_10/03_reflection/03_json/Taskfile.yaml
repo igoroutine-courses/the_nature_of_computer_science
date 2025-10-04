@@ -1,0 +1,17 @@
+version: '3'
+
+tasks:
+  run_old:
+    desc: Run old
+    cmds:
+      - go test -bench=. ./01_old/main_test.go
+
+  run_new:
+    desc: Run new
+    cmds:
+      - (GOEXPERIMENT=jsonv2 go test -bench=. ./02_new/main_test.go)
+
+  run:
+    cmds:
+      - task: run_old
+      - task: run_new
